@@ -1,0 +1,48 @@
+/* Main Container */
+.app-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Header Section */
+  .header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .main-heading {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 600;
+  }
+  
+  /* Navigation */
+  .nav-section {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .nav-link {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 18px;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .nav-link:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+  }
+  
+  /* Content Section */
+  .content-section {
+    padding: 20px;
+  }
+  

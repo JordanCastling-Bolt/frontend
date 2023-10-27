@@ -1,0 +1,73 @@
+/* Container for each post */
+div {
+    max-width: 600px;
+    margin: 10px auto;
+    padding: 20px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /* Post ID and Name */
+  div > :nth-child(1),
+  div > :nth-child(2) {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0 10px;
+  }
+  
+  /* Delete Button */
+  button {
+    padding: 10px 20px;
+    background-color: #ff4757;
+    border: none;
+    color: #ffffff;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button:hover {
+    background-color: #e84118;
+  }
+  /* Post Item */
+.post-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding: 15px;
+  }
+  
+  .post-info {
+    flex: 1;
+  }
+  
+  .post-id,
+  .post-name {
+    margin-right: 10px;
+    font-size: 16px;
+  }
+  
+  /* Post Actions */
+  .post-actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  button {
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+  }
+  
+  button:hover {
+    opacity: 0.8;
+  }
+  
+  

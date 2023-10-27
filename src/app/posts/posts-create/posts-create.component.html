@@ -1,0 +1,26 @@
+<form (submit)="onAddPost(addPostForm)" #addPostForm="ngForm">
+    <input type="text"
+           ngModel
+           name="enteredID"
+           required
+           minLength="1"
+           pattern="^[a-zA-Z0-9-_]{1,}$"
+           placeholder="Post ID"
+           #enteredID="ngModel"/>
+    <input type="text"
+           ngModel
+           name="enteredName"
+           required
+           minLength="1"
+           pattern="^[a-zA-Z0-9-_]{1,}$"
+           placeholder="Post Title"
+           #enteredName="ngModel"/>
+    <textarea
+           ngModel
+           name="enteredContent"
+           required
+           minLength="1"
+           placeholder="Post Content"
+           #enteredContent="ngModel"></textarea>
+    <button type="submit">Add Post</button>
+</form>
