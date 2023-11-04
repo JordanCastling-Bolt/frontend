@@ -52,7 +52,14 @@ export class PostsServiceService {
 
   deletePost_service(postId: string) {
     const headers = this.getAuthHeaders();
-    this.http.delete('https://localhost:3000/api/posts/' + postId, { headers: headers })
+    
+
+    const httpOptions = {
+      headers: headers,
+      body: { id: postId }  
+    };
+
+    this.http.delete('https://localhost:3000/api/posts', httpOptions) 
       .pipe(catchError(error => {
         console.error('Error deleting post:', error);
         return throwError(() => error);
@@ -62,7 +69,8 @@ export class PostsServiceService {
         this.postsDisplay = updatedPostsDeleted;
         this.updatedPostsDisplay.next([...this.postsDisplay]);
       });
-  }
+}
+
 
   getUpdateListener() {
     return this.updatedPostsDisplay.asObservable();

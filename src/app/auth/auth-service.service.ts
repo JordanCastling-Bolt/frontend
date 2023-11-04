@@ -27,11 +27,11 @@ login(username: string, userpassword: string) {
     return this.http.post<{ token: string }>('https://localhost:3000/api/users/login', authData);
 }
 
-  setToken(token: string) {
-    this.token = token;
-  }
+setToken(token: string) {
+  localStorage.setItem('auth_token', token);
+}
 
-  getToken() {
-    return this.token;
-  }
+getToken() {
+  return localStorage.getItem('auth_token');
+}
 }
