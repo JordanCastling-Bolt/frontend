@@ -1,10 +1,12 @@
 /* Main Container */
 .app-container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-  }
+  width: 100%;          /* Make the container's width 100% of the parent's width */
+  height: 100vh;        /* 100% of the viewport's height */
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;   /* Include padding in the total width/height */
+}
   
   /* Header Section */
   .header-section {
