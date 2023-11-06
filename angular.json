@@ -61,8 +61,8 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "ssl": true,
-            "sslKey": "keys/privatekey.pem",
-            "sslCert": "keys/certificate.pem"
+            "sslKey": "keys/mydomain.key",
+            "sslCert": "keys/mydomain.crt"
           },
           "configurations": {
             "production": {
