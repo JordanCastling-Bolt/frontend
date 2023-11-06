@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-
+  title = 'frontend';
   // Inject the AuthServiceService
   constructor(public authservice: AuthServiceService, private router: Router) { }  // Note that it's public so the template can access it
 
@@ -19,7 +19,7 @@ export class AppComponent {
     this.authservice.clearUser();   // assuming clearUser is async
     // Navigate to login route
     this.router.navigate(['/login']);
-  } catch (error: Error) {
+  } catch(error: Error) {
     console.error('Error during logout:', error);
   }
 }
