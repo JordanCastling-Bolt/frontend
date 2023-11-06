@@ -1,11 +1,17 @@
 <div *ngFor="let post of posts" class="post-item">
-    <div class="post-info">
-      <span class="post-id">{{ post.id }}</span>
-      <span class="post-name">{{ post.name }}</span>
-    </div>
-    
-    <div class="post-actions">
-      <button (click)="onDelete(post._id)">Delete</button>
-    </div>
+
+  <div class="post-info">
+    <span class="post-title" (click)="post.showDetails = !post.showDetails">{{ post.title }}</span>
   </div>
-  
+
+  <div *ngIf="post.showDetails" class="post-details">
+    {{ post.post }}
+  </div>
+
+  <div class="post-actions">
+    <button *ngIf="post._id" (click)="onDelete(post._id)">Delete</button>
+  </div>
+</div>
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>

@@ -7,11 +7,14 @@ import { PostsCreateComponent } from "./posts/posts-create/posts-create.componen
 
 // Defining the routes
 const routes: Routes = [
-  { path: '', component: PostDisplayComponent },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'add', component: PostsCreateComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'signup', component: LoginComponent }
+  { path: 'signup', component: LoginComponent },
+  { path: 'posts', component: PostDisplayComponent } // Added a new path for posts
 ];
+
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

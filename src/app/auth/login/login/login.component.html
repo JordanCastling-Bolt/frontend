@@ -1,33 +1,41 @@
 <form (submit)="onLogin(loginForm)" #loginForm="ngForm">
-
-    <!-- Username Input -->
-    <input type="text" 
-           name="username" 
-           [(ngModel)]="username" 
-           placeholder="Username"
-           required
-           pattern="^[\w.-]+@([-a-zA-Z0-9]+\.)+[a-zA-Z]{2,4}$"
-           #usernameRef="ngModel"/>
-           <div *ngIf="usernameRef?.invalid && (usernameRef?.dirty || usernameRef?.touched)">
-            <div *ngIf="usernameRef?.errors?.['required']">Username is required.</div>
-            <div *ngIf="usernameRef?.errors?.['pattern']">Invalid email format.</div>
+    <!-- First Name Input (Only for Signup) -->
+    <div *ngIf="option === '/signup'">
+        <input type="text" name="firstName" [(ngModel)]="firstName" placeholder="First Name" required
+            #firstNameRef="ngModel" />
+        <div *ngIf="firstNameRef?.invalid && (firstNameRef?.dirty || firstNameRef?.touched)">
+            <div *ngIf="firstNameRef?.errors?.['required']">First name is required.</div>
         </div>
+        <br>
+    </div>
+
+    <!-- Last Name Input (Only for Signup) -->
+    <div *ngIf="option === '/signup'">
+        <input type="text" name="lastName" [(ngModel)]="lastName" placeholder="Last Name" required
+            #lastNameRef="ngModel" />
+        <div *ngIf="lastNameRef?.invalid && (lastNameRef?.dirty || lastNameRef?.touched)">
+            <div *ngIf="lastNameRef?.errors?.['required']">Last name is required.</div>
+        </div>
+        <br>
+    </div>
+    <!-- Username Input -->
+    <input type="text" name="username" [(ngModel)]="username" placeholder="Username" required
+        pattern="^[\w.-]+@([-a-zA-Z0-9]+\.)+[a-zA-Z]{2,4}$" #usernameRef="ngModel" />
+    <div *ngIf="usernameRef?.invalid && (usernameRef?.dirty || usernameRef?.touched)">
+        <div *ngIf="usernameRef?.errors?.['required']">Username is required.</div>
+        <div *ngIf="usernameRef?.errors?.['pattern']">Invalid email format.</div>
+    </div>
     <br>
 
     <!-- Password Input -->
-    <input type="password" 
-           name="password" 
-           [(ngModel)]="password" 
-           placeholder="Password"
-           required
-           minlength="8"
-           pattern="^([a-zA-Z0-9@*#]{8,15})$"
-           #passwordRef="ngModel"/>
-           <div *ngIf="passwordRef?.invalid && (passwordRef?.dirty || passwordRef?.touched)">
-            <div *ngIf="passwordRef?.errors?.['required']">Password is required.</div>
-            <div *ngIf="passwordRef?.errors?.['minlength']">Password should be at least 8 characters long.</div>
-            <div *ngIf="passwordRef?.errors?.['pattern']">Invalid password format. Use only letters, numbers, and special characters (@, *, #).</div>
-        </div>
+    <input type="password" name="password" [(ngModel)]="password" placeholder="Password" required minlength="8"
+        pattern="^([a-zA-Z0-9@*#]{8,15})$" #passwordRef="ngModel" />
+    <div *ngIf="passwordRef?.invalid && (passwordRef?.dirty || passwordRef?.touched)">
+        <div *ngIf="passwordRef?.errors?.['required']">Password is required.</div>
+        <div *ngIf="passwordRef?.errors?.['minlength']">Password should be at least 8 characters long.</div>
+        <div *ngIf="passwordRef?.errors?.['pattern']">Invalid password format. Use only letters, numbers, and special
+            characters (@, *, #).</div>
+    </div>
     <br>
 
     <button type="submit">{{option}}</button>

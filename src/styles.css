@@ -1,4 +1,53 @@
-/* You can add global styles to this file, and also import other style files */
+/* Reset some default browser stylings */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background-color: #f5f5f5; /* Light gray background for a subtle look */
+    color: #333; /* Slightly softer than black for text */
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Enhanced links */
+a {
+    color: #007BFF; /* Deep blue color */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover, a:focus {
+    color: #0056b3; /* Darken color on hover/focus */
+    text-decoration: underline;
+}
+
+/* If you have a header or footer in the future, you can style them too */
+header, footer {
+    padding: 1rem 2rem;
+    background-color: #333;
+    color: #fff;
+}
+
+main {
+    flex: 1;
+    padding: 1rem;
+}
+
+/* Any other global styles or typography enhancements can go here */

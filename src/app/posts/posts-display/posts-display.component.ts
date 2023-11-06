@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { PostsServiceService } from '../posts-service.service';
+import { ErrorService } from '../../error/error.service'; // Import the ErrorService
+import { Post } from '../models/post.model';
 
 @Component({
   selector: 'app-post-display',
@@ -9,26 +11,37 @@ import { PostsServiceService } from '../posts-service.service';
 })
 export class PostDisplayComponent implements OnInit, OnDestroy {
 
-  posts: { _id: string, id: string, name: string, _v: string }[] = [];
-  
-  constructor(public postsService: PostsServiceService) { }
+  posts: Post[] = [];
+  errorMessage: string | null = null; // To store and display the error message
+
+  constructor(public postsService: PostsServiceService, private errorService: ErrorService) { } // Inject the ErrorService
 
   private postsSubscription!: Subscription;
+  private errorSubscription!: Subscription; // To keep track of the error subscription
 
   ngOnInit(): void {
+    
     this.postsService.getPost_service();
     this.postsSubscription = this.postsService.getUpdateListener()
-      .subscribe((posts: { _id: string, id: string, name: string, _v: string }[]) => {
+      .subscribe((posts: Post[]) => {
         this.posts = posts;
       });
+      // Subscribe to the error messages from the ErrorService
+    this.errorSubscription = this.errorService.error$
+    .subscribe((error: string | null) => {
+      this.errorMessage = error;
+      // You can decide here how to display the error. For this example, we're just setting it to a local variable.
+    });
   }
 
   ngOnDestroy(): void {
     if (this.postsSubscription) {
       this.postsSubscription.unsubscribe();
     }
+    if (this.errorSubscription) { // Unsubscribe from the error observable
+      this.errorSubscription.unsubscribe();
+    }
   }
-  
 
   onDelete(postId: string): void {
     this.postsService.deletePost_service(postId);
