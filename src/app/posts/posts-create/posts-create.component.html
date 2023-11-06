@@ -1,40 +1,52 @@
 <form (submit)="onAddPost(addPostForm)" #addPostForm="ngForm">
-       <div class="form-group">
-              <input type="text" ngModel name="enteredID" required minLength="1" pattern="^[a-zA-Z0-9-_]{1,}$"
-                     placeholder="Post ID" #enteredID="ngModel" />
-              <div *ngIf="enteredID.errors && enteredID.errors['required'] && enteredID.touched">ID is required.</div>
-              <div *ngIf="enteredID.errors && enteredID.errors['pattern'] && enteredID.touched">ID can only contain
-                     alphanumeric characters, dashes, or underscores.</div>
-              <div *ngIf="enteredID.errors && enteredID.errors['minlength'] && enteredID.touched">ID should be at least
-                     1 character long.</div>
+       <div *ngIf="authService.isLoggedIn()">
+              <div class="form-group">
+                     <input type="text" ngModel name="enteredID" required minLength="1" pattern="^[a-zA-Z0-9-_]{1,}$"
+                            placeholder="Post ID" #enteredID="ngModel" />
+                     <div *ngIf="enteredID.errors && enteredID.errors['required'] && enteredID.touched">ID is required.
+                     </div>
+                     <div *ngIf="enteredID.errors && enteredID.errors['pattern'] && enteredID.touched">ID can only
+                            contain
+                            alphanumeric characters, dashes, or underscores.</div>
+                     <div *ngIf="enteredID.errors && enteredID.errors['minlength'] && enteredID.touched">ID should be at
+                            least
+                            1 character long.</div>
 
+              </div>
+
+              <div class="form-group">
+                     <input type="text" ngModel name="enteredName" required minLength="1" placeholder="Post Title"
+                            #enteredName="ngModel" />
+                     <div *ngIf="enteredName.errors && enteredName.errors['required'] && enteredName.touched">Title is
+                            required.</div>
+                     <div *ngIf="enteredName.errors && enteredName.errors['pattern'] && enteredName.touched">Title can
+                            only
+                            contain alphanumeric characters, dashes, or underscores.</div>
+                     <div *ngIf="enteredName.errors && enteredName.errors['minlength'] && enteredName.touched">Title
+                            should be
+                            at least 1 character long.</div>
+
+              </div>
+
+              <div class="form-group">
+                     <textarea ngModel name="enteredContent" required minLength="1" placeholder="Post Content"
+                            #enteredContent="ngModel"></textarea>
+                     <div *ngIf="enteredContent.errors && enteredContent.errors['required'] && enteredContent.touched">
+                            Content
+                            is required.</div>
+                     <div *ngIf="enteredContent.errors && enteredContent.errors['minlength'] && enteredContent.touched">
+                            Content
+                            should be at least 1 character long.</div>
+
+              </div>
+
+              <button type="submit">Add Post</button>
        </div>
 
-       <div class="form-group">
-              <input type="text" ngModel name="enteredName" required minLength="1" placeholder="Post Title"
-                     #enteredName="ngModel" />
-              <div *ngIf="enteredName.errors && enteredName.errors['required'] && enteredName.touched">Title is
-                     required.</div>
-              <div *ngIf="enteredName.errors && enteredName.errors['pattern'] && enteredName.touched">Title can only
-                     contain alphanumeric characters, dashes, or underscores.</div>
-              <div *ngIf="enteredName.errors && enteredName.errors['minlength'] && enteredName.touched">Title should be
-                     at least 1 character long.</div>
-
-       </div>
-
-       <div class="form-group">
-              <textarea ngModel name="enteredContent" required minLength="1" placeholder="Post Content"
-                     #enteredContent="ngModel"></textarea>
-              <div *ngIf="enteredContent.errors && enteredContent.errors['required'] && enteredContent.touched">Content
-                     is required.</div>
-              <div *ngIf="enteredContent.errors && enteredContent.errors['minlength'] && enteredContent.touched">Content
-                     should be at least 1 character long.</div>
-
-       </div>
-
-       <button type="submit">Add Post</button>
-       <p>Form is {{ addPostForm.valid ? 'VALID' : 'INVALID' }}</p>
        <div *ngIf="errorMessage" class="error-message">
               {{ errorMessage }}
+       </div>
+       <div *ngIf="successMessage" class="success-message">
+              {{ successMessage }}
        </div>
 </form>

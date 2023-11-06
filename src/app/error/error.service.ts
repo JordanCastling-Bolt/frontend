@@ -8,7 +8,7 @@ export class ErrorService {
   private errorSubject = new BehaviorSubject<string | null>(null);
 
   // This is the public observable that other parts of the app can subscribe to
-  error$ = this.errorSubject.asObservable();
+  public error$ = this.errorSubject.asObservable();
 
   // Emit a new error message
   async throwError(errorMessage: string): Promise<void> {

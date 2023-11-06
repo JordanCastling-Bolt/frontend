@@ -3,6 +3,8 @@ import { NgForm } from '@angular/forms';
 import { PostsServiceService } from '../posts-service.service';
 import { ErrorService } from '../../error/error.service'; 
 import { Subscription } from 'rxjs';
+import { AuthServiceService } from 'src/app/auth/auth-service.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-posts-create',
@@ -13,22 +15,33 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
 
   private errorSub!: Subscription; // To keep track of the subscription
   public errorMessage!: string;   // To store and display the error message
+  public successMessage!: string;
 
-  constructor(public postsservice: PostsServiceService, private errorService: ErrorService) { }
+  constructor(public postsservice: PostsServiceService, private errorService: ErrorService,  public authService: AuthServiceService, private cdRef: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
-    // Subscribe to the error messages from the ErrorService
+    if (!this.authService.checkAuthentication()) { 
+      const errorText = 'You need to be logged in to create a post.';
+      this.errorService.throwError(errorText);
+      this.errorMessage = errorText; 
+    }
     this.errorSub = this.errorService.error$.subscribe((errorMessage: string | null) => {
+      console.log('Error received:', errorMessage); // Debug line
       if (errorMessage) {
         this.errorMessage = errorMessage;
-        // You can decide here how to display the error. For this example, we're just setting it to a local variable.
+        this.cdRef.detectChanges(); // Trigger change detection manually
+
       }
     });
   }
   
-  onAddPost(postForm: NgForm) {
+  async onAddPost(postForm: NgForm) {
+    this.successMessage = '';
     if (postForm.invalid) {
-      this.errorService.throwError('Invalid!');
+      const errorText = 'Invalid!';
+      this.errorService.throwError(errorText);
+      this.errorMessage = errorText; 
       return;
     }
   
@@ -37,6 +50,7 @@ export class PostsCreateComponent implements OnInit, OnDestroy {
       postForm.value.enteredName,
       postForm.value.enteredContent
     );
+    this.successMessage = 'Post added successfully!';
     postForm.resetForm();
   }
   

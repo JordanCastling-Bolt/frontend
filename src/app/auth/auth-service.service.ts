@@ -64,4 +64,13 @@ export class AuthServiceService {
     this.clearUser();
     localStorage.removeItem('auth_token');
   }
+
+  isLoggedIn(): boolean {
+    return !!this.getToken(); 
+  }
+
+  checkAuthentication(): boolean {
+    return this.isLoggedIn();
+  }
+
 }
