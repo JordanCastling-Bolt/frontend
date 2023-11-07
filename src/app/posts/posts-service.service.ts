@@ -78,15 +78,10 @@ export class PostsServiceService {
   // Service method to delete a post by ID
   deletePost_service(postId: string) {
     const headers = this.getAuthHeaders();
-    if (!headers) return;  
-    
-    const httpOptions = {
-      headers: headers,
-      body: { id: postId } 
-    };
+    if (!headers) return;
   
-    // HTTP DELETE request to delete a post
-    this.http.delete('https://localhost:3000/api/posts', httpOptions)
+    // Pass headers directly in the second argument of the delete method
+    this.http.delete(`https://localhost:3000/api/posts/${postId}`, { headers })
       .pipe(
         catchError(error => {
           console.error('Error deleting post:', error);
@@ -95,13 +90,27 @@ export class PostsServiceService {
       )
       .subscribe(() => {
         this.errorService.clearError();
-        // Update the local posts state after deletion
-        const updatedPostsDeleted = this.postsDisplay.filter(post => post._id !== postId);
-        this.postsDisplay = updatedPostsDeleted;
+        // Filter out the deleted post from the local posts state
+        this.postsDisplay = this.postsDisplay.filter(post => post._id !== postId);
         this.updatedPostsDisplay.next([...this.postsDisplay]);
       });
   }
   
+  // Assuming fetchPosts method is something like this
+  fetchPosts() {
+    // HTTP GET request to fetch posts, typed with <Post[]>
+    this.http.get<Post[]>('https://localhost:3000/api/posts')
+      .pipe(
+        catchError(error => {
+          console.error('Error fetching posts:', error);
+          return throwError(() => error);
+        })
+      )
+      .subscribe((posts: Post[]) => {
+        this.postsDisplay = posts; // TypeScript now recognizes Post[]
+        this.updatedPostsDisplay.next([...this.postsDisplay]);
+      });
+  }
   // Returns an observable that subscribers can listen to for updates on posts
   getUpdateListener() {
     return this.updatedPostsDisplay.asObservable();

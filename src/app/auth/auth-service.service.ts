@@ -23,23 +23,19 @@ export class AuthServiceService {
   }
 
   // Method for signing up a new user, it's async and will return a promise
-  async signup(firstName: string, lastName: string, username: string, userpassword: string) {
+  async signup(firstName: string, lastName: string, username: string, userpassword: string): Promise<{ success: boolean }> {
     // Prepare the user data
     const authData = {
-      username: username,
       firstName: firstName,
       lastName: lastName,
+      username: username,
       password: userpassword
     };
     // Make a POST request to the signup endpoint and wait for the response
-    const response = await this.http.post<{ token: string, username: string }>(
-      'https://localhost:3000/api/users/signup',
-      authData
-    ).toPromise();
-    // Return the response containing the token and username
-    return response;
+    await this.http.post('https://localhost:3000/api/users/signup', authData).toPromise();
+    // Return a success confirmation
+    return { success: true };
   }
-
   // Method for logging in a user, similar to the signup method
   async login(username: string, userpassword: string) {
     // Prepare the login data

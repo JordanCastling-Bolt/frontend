@@ -55,26 +55,24 @@ export class LoginComponent implements OnInit {
                 // If there is an error during login, set the form error
                 this.formError = 'Login failed. Please try again.';
             });
-    } else {
-        // If the option is not login, assume it is signup and call the signup method
-        this.authservice.signup(
-            loginForm.value.firstName,
-            loginForm.value.lastName,
-            loginForm.value.username, 
-            loginForm.value.password
-        )
-            .then((response?: { token: string }) => {
-                // If there is no response, throw an error
-                if (!response) {
-                    throw new Error('Signup failed.');
-                }
-                // If signup is successful, set the token and navigate to the login page
-                this.authservice.setToken(response.token);
-                this.router.navigate(['login']);
+        } else {
+            // If the option is not login, assume it is signup and call the signup method
+            this.authservice.signup(
+              loginForm.value.firstName,
+              loginForm.value.lastName,
+              loginForm.value.username, 
+              loginForm.value.password
+            )
+            .then((response: { success: boolean }) => {
+              if (!response.success) {
+                throw new Error('Signup failed.');
+              }
+              // If signup is successful, navigate to the login page
+              this.router.navigate(['/login']);
             })
             .catch((error: any) => {
-                // If there is an error during signup, set the form error
-                this.formError = 'Signup failed. Please try again.';
+              // If there is an error during signup, set the form error
+              this.formError = 'Signup failed. Please try again.';
             });
     }
   }
