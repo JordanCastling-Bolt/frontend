@@ -2,24 +2,29 @@ import { Component } from '@angular/core';
 import { AuthServiceService } from './auth/auth-service.service';
 import { Router } from '@angular/router';
 
+// The @Component decorator indicates that the following class is an Angular component
+// It provides the Angular metadata for the component including the selector, template URL, and styles.
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-root',  // The custom HTML tag that will be used for this component.
+  templateUrl: './app.component.html',  // The location of the HTML template file for this component.
+  styleUrls: ['./app.component.css']  // The location of the CSS styles for this component.
 })
 export class AppComponent {
-  title = 'frontend';
-  // Inject the AuthServiceService
-  constructor(public authservice: AuthServiceService, private router: Router) { }  // Note that it's public so the template can access it
+  title = 'frontend';  // A property bound to the title in the component's template
 
-  // Define the logout method if you're using it in the template
+  // The constructor is used to inject dependencies into the component
+  constructor(public authservice: AuthServiceService, private router: Router) { }  
+
+  // An async method to handle the logout process
   async logout() {
-    // Call the logout logic here, for example:
-    this.authservice.setToken('');  // assuming setToken is async
-    this.authservice.clearUser();   // assuming clearUser is async
-    // Navigate to login route
+    // Clear the token from the AuthService, effectively logging out the user
+    this.authservice.setToken('');  
+    // Clear any user information from the AuthService
+    this.authservice.clearUser();   
+    // Navigate to the '/login' route using Angular's Router service
     this.router.navigate(['/login']);
+  // Catch block to handle any errors that may occur during the logout process
   } catch(error: Error) {
-    console.error('Error during logout:', error);
+    console.error('Error during logout:', error);  // Log the error to the console
   }
 }

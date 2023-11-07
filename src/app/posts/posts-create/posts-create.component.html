@@ -1,6 +1,17 @@
 <form (submit)="onAddPost(addPostForm)" #addPostForm="ngForm">
        <div *ngIf="authService.isLoggedIn()">
               <div class="form-group">
+                     <label for="departmentSelect">Department:</label>
+                     <select ngModel name="enteredDepartment" required #enteredDepartment="ngModel" id="departmentSelect">
+                       <option value="">Please select a department</option>
+                       <!-- This will generate dropdown options from the departments array -->
+                       <option *ngFor="let department of departments" [value]="department">{{ department }}</option>
+                     </select>
+                     <div *ngIf="enteredDepartment.errors && enteredDepartment.errors['required'] && enteredDepartment.touched">
+                       Please select a department.
+                     </div>
+                   </div>
+              <div class="form-group">
                      <input type="text" ngModel name="enteredID" required minLength="1" pattern="^[a-zA-Z0-9-_]{1,}$"
                             placeholder="Post ID" #enteredID="ngModel" />
                      <div *ngIf="enteredID.errors && enteredID.errors['required'] && enteredID.touched">ID is required.

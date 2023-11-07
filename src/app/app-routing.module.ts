@@ -11,10 +11,8 @@ const routes: Routes = [
   { path: 'add', component: PostsCreateComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: LoginComponent },
-  { path: 'posts', component: PostDisplayComponent } // Added a new path for posts
+  { path: 'posts', component: PostDisplayComponent }
 ];
-
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

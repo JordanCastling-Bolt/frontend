@@ -1,17 +1,29 @@
-<div *ngFor="let post of posts" class="post-item">
+<!-- Place the dropdown outside and above the ngFor loop -->
+<select [(ngModel)]="selectedDepartment" (change)="filterPostsByDepartment()">
+  <option value="">All Departments</option>
+  <option *ngFor="let department of departments" [ngValue]="department">
+    {{ department }}
+  </option>
+</select>
 
+<!-- Single ngFor loop for posts -->
+<div *ngFor="let post of filteredPosts" class="post-item">
   <div class="post-info">
+    <!-- Toggle showDetails property on click -->
     <span class="post-title" (click)="post.showDetails = !post.showDetails">{{ post.title }}</span>
   </div>
 
+  <!-- Display the post details if showDetails is true -->
   <div *ngIf="post.showDetails" class="post-details">
-    {{ post.post }}
+    {{ post.post }} <!-- Assuming the property for post content is 'content' -->
   </div>
 
   <div class="post-actions">
     <button *ngIf="post._id" (click)="onDelete(post._id)">Delete</button>
   </div>
 </div>
+
+
 <div *ngIf="errorMessage" class="error-message">
   {{ errorMessage }}
 </div>
